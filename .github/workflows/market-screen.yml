@@ -1,1 +1,49 @@
+name: Market screen 07:00 and 08:30 KST
 
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 22 * * 0-4"
+    - cron: "30,40,50 23 * * 0-4"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-screen
+  cancel-in-progress: false
+
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Read-only market screening
+        env:
+          KIWOOM_APP_KEY: ${{ secrets.KIWOOM_APP_KEY }}
+          KIWOOM_SECRET_KEY: ${{ secrets.KIWOOM_SECRET_KEY }}
+          KIWOOM_MODE: real
+        run: python scripts/screen.py
+
+      - name: Commit changed result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/data/results.json
+          git diff --cached --quiet || git commit -m "data: update market screening"
+          git push
