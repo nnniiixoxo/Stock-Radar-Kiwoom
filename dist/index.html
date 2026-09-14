@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071525"><title>Stock Radar Kiwoom</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header><div><small>KOREA PRE-MARKET RADAR</small><h1>Stock Radar <span>Kiwoom</span></h1></div><button id="refresh">지금 새로고침</button></header>
+    <section class="status"><b id="status">불러오는 중</b><span id="updated"></span></section>
+    <section class="note">
+      <h2>07:00 프리마켓 → 08:30 최종 신호</h2>
+      <p>예상체결 등락·거래량, 호가 불균형, 체결강도, 거래대금, 외국인·기관 흐름을 점수화합니다.</p>
+    </section>
+    <section><div class="section-title"><h2>오늘의 후보</h2><span id="count">0종목</span></div><div id="cards" class="cards"></div></section>
+    <footer>정보 제공용 · 수익 보장 없음 · 자동주문 기능 없음</footer>
+  </main><script src="app.js"></script>
+</body></html>
+

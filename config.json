@@ -1,0 +1,24 @@
+{
+  "mode": "real",
+  "top_n": 20,
+  "min_score": 58,
+  "filters": {
+    "min_price": 1500,
+    "max_price": 300000,
+    "min_expected_change_pct": 0.5,
+    "max_expected_change_pct": 5.0,
+    "min_expected_volume": 10000,
+    "min_bid_ask_ratio": 1.15,
+    "min_execution_strength": 105
+  },
+  "weights": {
+    "expected_change": 24,
+    "expected_volume": 18,
+    "orderbook": 16,
+    "execution_strength": 14,
+    "turnover": 14,
+    "foreign_institution": 8,
+    "market_regime": 6
+  }
+}
+
