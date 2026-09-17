@@ -17,29 +17,34 @@ OUTPUT = ROOT / "dist" / "data" / "results.json"
 
 
 def number(value) -> float:
+    if value is None or value == "":
+        return 0.0
+
     try:
-        text = str(value or "0")
-        text = text.replace(",", "").replace("+", "")
+        text = str(value)
+        text = text.replace(",", "")
+        text = text.replace("+", "")
+        text = text.replace("%", "")
+
         return float(text)
+
     except (TypeError, ValueError):
         return 0.0
 
 
-def is_market_open(now: datetime) -> bool:
-    """한국 주식 정규장 시간인지 확인합니다."""
+def trading_started(now: datetime) -> bool:
+    """
+    평일 오전 9시 이후인지 확인합니다.
+    장 마감 후에도 오늘 누적 거래량은 조회합니다.
+    """
+
     if now.weekday() >= 5:
         return False
 
-    current = now.time()
-
-    return (
-        clock_time(9, 0)
-        <= current
-        <= clock_time(15, 30)
-    )
+    return now.time() >= clock_time(9, 0)
 
 
-def add_execution_strength(
+def add_live_data(
     client: KiwoomClient,
     selected: list[dict],
     config: dict,
@@ -47,14 +52,15 @@ def add_execution_strength(
     now: datetime,
 ) -> None:
     """
-    선정된 종목에 대해 키움 ka10046 API를 호출하여
-    현재 체결강도를 추가합니다.
+    최종 선정 종목의 체결강도와 누적 거래량을
+    ka10046에서 조회하여 추가합니다.
     """
 
-    if not is_market_open(now):
+    if not trading_started(now):
         print(
-            "현재는 정규장 시간이 아니므로 "
-            "체결강도는 0으로 표시될 수 있습니다."
+            "현재는 장 시작 전입니다. "
+            "실제 체결강도와 누적 거래량은 "
+            "오전 9시 이후 생성됩니다."
         )
         return
 
@@ -66,7 +72,9 @@ def add_execution_strength(
     )
 
     for stock in selected:
-        code = str(stock.get("code", "")).strip()
+        code = str(
+            stock.get("code", "")
+        ).strip()
 
         if not code:
             continue
@@ -79,25 +87,48 @@ def add_execution_strength(
                 },
             )
 
-            strength_rows = extract_rows(response)
+            live_rows = extract_rows(response)
 
-            if not strength_rows:
+            if not live_rows:
                 stock["execution_strength"] = 0
+
+                print(
+                    f"{code}: 체결강도 자료 없음"
+                )
+
+                time.sleep(0.25)
                 continue
 
-            latest = strength_rows[0]
+            # 첫 번째 자료가 가장 최근 시간 자료
+            latest = live_rows[0]
 
             strength = number(
                 latest.get("cntr_str")
             )
+
+            accumulated_volume = number(
+                latest.get("acc_trde_qty")
+            )
+
+            # 일부 응답에서 누적거래량이 없으면
+            # 일반 거래량 항목을 대신 사용
+            if accumulated_volume <= 0:
+                accumulated_volume = number(
+                    latest.get("trde_qty")
+                )
 
             stock["execution_strength"] = round(
                 strength,
                 1,
             )
 
-            # 기존 점수에는 체결강도가 0으로 계산되어 있었으므로
-            # 실제 체결강도 점수를 추가합니다.
+            if accumulated_volume > 0:
+                stock["expected_volume"] = int(
+                    accumulated_volume
+                )
+
+            # 기존 점수에는 체결강도가 0으로
+            # 계산됐으므로 실제 강도 점수 추가
             strength_ratio = max(
                 0.0,
                 min(
@@ -106,14 +137,14 @@ def add_execution_strength(
                 ),
             )
 
-            old_score = number(
+            previous_score = number(
                 stock.get("score")
             )
 
             stock["score"] = round(
                 min(
                     100.0,
-                    old_score
+                    previous_score
                     + strength_weight
                     * strength_ratio,
                 ),
@@ -121,19 +152,25 @@ def add_execution_strength(
             )
 
             print(
-                f"{code} 체결강도: {strength:.1f}"
+                f"{code}: "
+                f"체결강도={strength:.1f}, "
+                f"누적거래량={int(accumulated_volume)}"
             )
 
         except KiwoomError as exc:
             warning = (
-                f"{code} 체결강도 조회 실패: {exc}"
+                f"{code} 실시간 자료 조회 실패: "
+                f"{exc}"
             )
 
             warnings.append(warning)
-            stock["execution_strength"] = 0
-            print(warning, file=sys.stderr)
 
-        # 키움 조회 제한을 넘지 않도록 잠시 대기
+            print(
+                warning,
+                file=sys.stderr,
+            )
+
+        # 키움 API의 초당 조회 제한 보호
         time.sleep(0.25)
 
 
@@ -230,13 +267,18 @@ def main() -> int:
             except KiwoomError as exc:
                 warning = str(exc)
                 warnings.append(warning)
-                print(warning, file=sys.stderr)
+
+                print(
+                    warning,
+                    file=sys.stderr,
+                )
 
         items = normalize(rows)
         selected = rank(items, config)
 
-        # 최종 선정 종목의 실제 체결강도 조회
-        add_execution_strength(
+        # 선정된 종목의 실제 체결강도와
+        # 누적 거래량 조회
+        add_live_data(
             client=client,
             selected=selected,
             config=config,
@@ -244,7 +286,7 @@ def main() -> int:
             now=now,
         )
 
-        # 체결강도 반영 후 점수가 높은 순서로 재정렬
+        # 체결강도 반영 점수로 다시 정렬
         selected.sort(
             key=lambda stock: (
                 -number(stock.get("score")),
@@ -256,18 +298,24 @@ def main() -> int:
             )
         )
 
-        status = "ok" if rows else "no_data"
+        status = (
+            "ok"
+            if rows
+            else "no_data"
+        )
 
         if selected:
             message = (
                 f"조건을 통과한 종목 "
                 f"{len(selected)}개를 찾았습니다."
             )
+
         elif rows:
             message = (
                 "자료는 정상적으로 조회했지만 "
                 "현재 조건을 통과한 종목이 없습니다."
             )
+
         else:
             message = (
                 "키움 API에서 종목 자료를 "
@@ -294,7 +342,9 @@ def main() -> int:
             exist_ok=True,
         )
 
-        temporary = OUTPUT.with_suffix(".tmp")
+        temporary = OUTPUT.with_suffix(
+            ".tmp"
+        )
 
         temporary.write_text(
             json.dumps(
@@ -331,6 +381,7 @@ def main() -> int:
             f"예상하지 못한 오류: {exc}",
             file=sys.stderr,
         )
+
         return 1
 
 
