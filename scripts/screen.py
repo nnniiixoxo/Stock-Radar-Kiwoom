@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import json
 import sys
-from datetime import datetime
+import time
+from datetime import datetime, time as clock_time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -15,15 +16,142 @@ from src.strategy import extract_rows, normalize, rank
 OUTPUT = ROOT / "dist" / "data" / "results.json"
 
 
-def main() -> int:
-    config = json.loads(
-        (ROOT / "config.json").read_text(encoding="utf-8")
+def number(value) -> float:
+    try:
+        text = str(value or "0")
+        text = text.replace(",", "").replace("+", "")
+        return float(text)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def is_market_open(now: datetime) -> bool:
+    """한국 주식 정규장 시간인지 확인합니다."""
+    if now.weekday() >= 5:
+        return False
+
+    current = now.time()
+
+    return (
+        clock_time(9, 0)
+        <= current
+        <= clock_time(15, 30)
     )
 
-    now = datetime.now(ZoneInfo("Asia/Seoul"))
-    client = KiwoomClient(mode=config.get("mode"))
 
-    # 키움 REST API 조회 목록
+def add_execution_strength(
+    client: KiwoomClient,
+    selected: list[dict],
+    config: dict,
+    warnings: list[str],
+    now: datetime,
+) -> None:
+    """
+    선정된 종목에 대해 키움 ka10046 API를 호출하여
+    현재 체결강도를 추가합니다.
+    """
+
+    if not is_market_open(now):
+        print(
+            "현재는 정규장 시간이 아니므로 "
+            "체결강도는 0으로 표시될 수 있습니다."
+        )
+        return
+
+    strength_weight = number(
+        config.get("weights", {}).get(
+            "execution_strength",
+            0,
+        )
+    )
+
+    for stock in selected:
+        code = str(stock.get("code", "")).strip()
+
+        if not code:
+            continue
+
+        try:
+            response = client.call(
+                "ka10046",
+                {
+                    "stk_cd": code,
+                },
+            )
+
+            strength_rows = extract_rows(response)
+
+            if not strength_rows:
+                stock["execution_strength"] = 0
+                continue
+
+            latest = strength_rows[0]
+
+            strength = number(
+                latest.get("cntr_str")
+            )
+
+            stock["execution_strength"] = round(
+                strength,
+                1,
+            )
+
+            # 기존 점수에는 체결강도가 0으로 계산되어 있었으므로
+            # 실제 체결강도 점수를 추가합니다.
+            strength_ratio = max(
+                0.0,
+                min(
+                    1.0,
+                    (strength - 90.0) / 60.0,
+                ),
+            )
+
+            old_score = number(
+                stock.get("score")
+            )
+
+            stock["score"] = round(
+                min(
+                    100.0,
+                    old_score
+                    + strength_weight
+                    * strength_ratio,
+                ),
+                1,
+            )
+
+            print(
+                f"{code} 체결강도: {strength:.1f}"
+            )
+
+        except KiwoomError as exc:
+            warning = (
+                f"{code} 체결강도 조회 실패: {exc}"
+            )
+
+            warnings.append(warning)
+            stock["execution_strength"] = 0
+            print(warning, file=sys.stderr)
+
+        # 키움 조회 제한을 넘지 않도록 잠시 대기
+        time.sleep(0.25)
+
+
+def main() -> int:
+    config = json.loads(
+        (ROOT / "config.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    now = datetime.now(
+        ZoneInfo("Asia/Seoul")
+    )
+
+    client = KiwoomClient(
+        mode=config.get("mode")
+    )
+
     calls = [
         (
             "ka10029",
@@ -86,7 +214,11 @@ def main() -> int:
     try:
         for api_id, body in calls:
             try:
-                response = client.call(api_id, body)
+                response = client.call(
+                    api_id,
+                    body,
+                )
+
                 api_rows = extract_rows(response)
                 rows.extend(api_rows)
 
@@ -103,11 +235,33 @@ def main() -> int:
         items = normalize(rows)
         selected = rank(items, config)
 
+        # 최종 선정 종목의 실제 체결강도 조회
+        add_execution_strength(
+            client=client,
+            selected=selected,
+            config=config,
+            warnings=warnings,
+            now=now,
+        )
+
+        # 체결강도 반영 후 점수가 높은 순서로 재정렬
+        selected.sort(
+            key=lambda stock: (
+                -number(stock.get("score")),
+                -number(
+                    stock.get(
+                        "expected_volume"
+                    )
+                ),
+            )
+        )
+
         status = "ok" if rows else "no_data"
 
         if selected:
             message = (
-                f"조건을 통과한 종목 {len(selected)}개를 찾았습니다."
+                f"조건을 통과한 종목 "
+                f"{len(selected)}개를 찾았습니다."
             )
         elif rows:
             message = (
@@ -115,7 +269,10 @@ def main() -> int:
                 "현재 조건을 통과한 종목이 없습니다."
             )
         else:
-            message = "키움 API에서 종목 자료를 가져오지 못했습니다."
+            message = (
+                "키움 API에서 종목 자료를 "
+                "가져오지 못했습니다."
+            )
 
         result = {
             "schema_version": 2,
@@ -132,10 +289,14 @@ def main() -> int:
             ),
         }
 
-        OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+        OUTPUT.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
 
-        temp = OUTPUT.with_suffix(".tmp")
-        temp.write_text(
+        temporary = OUTPUT.with_suffix(".tmp")
+
+        temporary.write_text(
             json.dumps(
                 result,
                 ensure_ascii=False,
@@ -143,7 +304,8 @@ def main() -> int:
             ),
             encoding="utf-8",
         )
-        temp.replace(OUTPUT)
+
+        temporary.replace(OUTPUT)
 
         summary = {
             "status": status,
@@ -159,7 +321,6 @@ def main() -> int:
             )
         )
 
-        # 종목 자료를 하나도 가져오지 못하면 실패 처리
         if not rows:
             return 1
 
