@@ -24,7 +24,9 @@
       --text: #ecf6ff;
       --muted: #8fb0c8;
       --cyan: #2ce0d0;
-      --red: #ff6b7a;
+      --red: #ff5d68;
+      --blue: #4d9fff;
+      --warning: #ffb454;
     }
 
     * {
@@ -113,7 +115,7 @@
     }
 
     .status .warn {
-      color: var(--red);
+      color: var(--warning);
     }
 
     #updated,
@@ -158,6 +160,9 @@
       text-decoration: none;
       overflow: hidden;
       cursor: pointer;
+      background: rgba(13, 33, 52, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 14px;
       transition:
         transform 0.16s ease,
         border-color 0.16s ease,
@@ -195,10 +200,11 @@
       overflow-wrap: anywhere;
     }
 
+    /* 총점 글자를 기존보다 한 단계 작게 */
     .score {
-      margin: 5px 0;
+      margin: 4px 0;
       color: var(--cyan);
-      font-size: 1.45rem;
+      font-size: 1.2rem;
       font-weight: 900;
     }
 
@@ -210,18 +216,26 @@
       font-size: 0.8rem;
     }
 
-    .row b {
-      color: #a9d8f7;
+    /* 등락률만 다른 수치보다 크게 표시 */
+    .change-row {
+      font-size: 0.95rem;
+      font-weight: 800;
     }
 
-    .naver-link {
-      margin-top: 9px;
-      padding-top: 8px;
-      color: var(--cyan);
-      border-top: 1px solid var(--line);
-      font-size: 0.75rem;
+    .change-row b {
+      font-size: 1.05rem;
+    }
+
+    /* 0보다 큰 값 */
+    .positive {
+      color: var(--red) !important;
       font-weight: 900;
-      text-align: right;
+    }
+
+    /* 0 이하 값 */
+    .negative {
+      color: var(--blue) !important;
+      font-weight: 900;
     }
 
     .empty {
@@ -317,8 +331,9 @@
         font-size: 0.65rem;
       }
 
+      /* 휴대폰 총점 크기 축소 */
       .score {
-        font-size: 1.17rem;
+        font-size: 1rem;
       }
 
       .row {
@@ -328,10 +343,13 @@
         font-size: 0.68rem;
       }
 
-      .naver-link {
-        margin-top: 7px;
-        padding-top: 6px;
-        font-size: 0.65rem;
+      /* 휴대폰 등락률 확대 */
+      .change-row {
+        font-size: 0.78rem;
+      }
+
+      .change-row b {
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -407,6 +425,30 @@
       );
     }
 
+    function numericValue(value) {
+      const cleaned = String(value ?? "0")
+        .replace(/,/g, "")
+        .replace(/%/g, "")
+        .replace(/\+/g, "");
+
+      const parsed = Number(cleaned);
+
+      return Number.isFinite(parsed)
+        ? parsed
+        : 0;
+    }
+
+    /*
+      요청 기준:
+      0보다 크면 빨간색
+      0 이하면 파란색
+    */
+    function valueClass(value) {
+      return numericValue(value) > 0
+        ? "positive"
+        : "negative";
+    }
+
     function stockCode(value) {
       const match = String(value || "").match(/\d{6}/);
       return match ? match[0] : "";
@@ -441,12 +483,29 @@
       const code = stockCode(stock.code);
       const name = stock.name || code;
 
+      const change = displayValue(
+        stock.change_pct
+      );
+
+      const volume = displayValue(
+        stock.expected_volume
+      );
+
+      const ratio = displayValue(
+        stock.bid_ask_ratio
+      );
+
+      const strength = displayValue(
+        stock.execution_strength
+      );
+
       return `
         <a
           class="card"
           href="${naverUrl(stock.code)}"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="${name} 네이버 증권에서 보기"
         >
           <div class="card-top">
             <small>#${index + 1}</small>
@@ -459,29 +518,37 @@
             ${displayValue(stock.score)}점
           </div>
 
-          <div class="row">
+          <div class="row change-row">
             <span>등락</span>
-            <b>${displayValue(stock.change_pct)}%</b>
+
+            <b class="${valueClass(change)}">
+              ${change}%
+            </b>
           </div>
 
           <div class="row">
             <span>체결량</span>
-            <b>${formatNumber(stock.expected_volume)}</b>
+
+            <b class="${valueClass(volume)}">
+              ${formatNumber(volume)}
+            </b>
           </div>
 
           <div class="row">
             <span>잔량비</span>
-            <b>${displayValue(stock.bid_ask_ratio)}</b>
+
+            <b class="${valueClass(ratio)}">
+              ${ratio}
+            </b>
           </div>
 
           <div class="row">
             <span>체결강도</span>
-            <b>${displayValue(
-              stock.execution_strength
-            )}</b>
-          </div>
 
-         
+            <b class="${valueClass(strength)}">
+              ${strength}
+            </b>
+          </div>
         </a>
       `;
     }
@@ -491,11 +558,14 @@
       const cards = getElement("cards");
 
       try {
-        status.textContent = "최신 결과 불러오는 중";
+        status.textContent =
+          "최신 결과 불러오는 중";
+
         status.className = "";
 
         const response = await fetch(
-          "data/results.json?t=" + Date.now(),
+          "data/results.json?t="
+          + Date.now(),
           {
             cache: "no-store"
           }
@@ -503,7 +573,8 @@
 
         if (!response.ok) {
           throw new Error(
-            "데이터 응답 오류 " + response.status
+            "데이터 응답 오류 "
+            + response.status
           );
         }
 
@@ -571,7 +642,8 @@
         );
 
         if (!opened) {
-          window.location.href = WORKFLOW_URL;
+          window.location.href =
+            WORKFLOW_URL;
         }
       }
     );
