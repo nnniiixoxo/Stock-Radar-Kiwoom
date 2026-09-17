@@ -1,15 +1,15 @@
 {
   "mode": "real",
   "top_n": 20,
-  "min_score": 58,
+  "min_score": 15,
   "filters": {
-    "min_price": 1500,
-    "max_price": 300000,
-    "min_expected_change_pct": 0.5,
-    "max_expected_change_pct": 5.0,
-    "min_expected_volume": 10000,
-    "min_bid_ask_ratio": 1.15,
-    "min_execution_strength": 105
+    "min_price": 500,
+    "max_price": 1000000,
+    "min_expected_change_pct": -30.0,
+    "max_expected_change_pct": 30.0,
+    "min_expected_volume": 0,
+    "min_bid_ask_ratio": 0,
+    "min_execution_strength": 0
   },
   "weights": {
     "expected_change": 24,
@@ -21,4 +21,3 @@
     "market_regime": 6
   }
 }
-
