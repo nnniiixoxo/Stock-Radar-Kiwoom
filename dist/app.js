@@ -1,5 +1,8 @@
 const el = (id) => document.getElementById(id);
 
+const WORKFLOW_URL =
+  "https://github.com/nnniiixoxo/Stock-Radar-Kiwoom/actions/workflows/market-screen.yml";
+
 const fmt = (number) =>
   new Intl.NumberFormat("ko-KR").format(Number(number || 0));
 
@@ -18,8 +21,22 @@ function getNaverFinanceUrl(code) {
   return `https://finance.naver.com/item/main.naver?code=${stockCode}`;
 }
 
+function safeValue(value, fallback = "0") {
+  if (
+    value === undefined ||
+    value === null ||
+    value === ""
+  ) {
+    return fallback;
+  }
+
+  return value;
+}
+
 async function load() {
   try {
+    el("status").textContent = "최신 결과 확인 중";
+
     const response = await fetch(
       `data/results.json?t=${Date.now()}`,
       {
@@ -52,75 +69,91 @@ async function load() {
 
     el("count").textContent = `${stocks.length}종목`;
 
-    if (stocks.length) {
-      el("cards").innerHTML = stocks
-        .map((stock, index) => {
-          const stockCode = getStockCode(stock.code);
-          const stockName = stock.name || stockCode;
-          const naverUrl = getNaverFinanceUrl(stock.code);
-
-          return `
-            <a
-              class="card"
-              href="${naverUrl}"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="${stockName} 네이버 증권에서 보기"
-            >
-              <small>
-                #${index + 1} ${stockCode}
-              </small>
-
-              <h3>${stockName}</h3>
-
-              <div class="score">
-                ${stock.score}점
-              </div>
-
-              <div class="row">
-                <span>예상 등락</span>
-                <b>${stock.change_pct}%</b>
-              </div>
-
-              <div class="row">
-                <span>예상 체결량</span>
-                <b>${fmt(stock.expected_volume)}</b>
-              </div>
-
-              <div class="row">
-                <span>매수/매도 잔량</span>
-                <b>${stock.bid_ask_ratio}</b>
-              </div>
-
-              <div class="row">
-                <span>체결강도</span>
-                <b>${stock.execution_strength}</b>
-              </div>
-
-              <div class="naver-link">
-                네이버 증권에서 보기 ↗
-              </div>
-            </a>
-          `;
-        })
-        .join("");
-    } else {
+    if (!stocks.length) {
       el("cards").innerHTML = `
         <div class="empty">
           ${data.message || "조건 통과 종목이 없습니다."}
         </div>
       `;
-    }
-  } catch (error) {
-    el("status").textContent =
-      `데이터 로드 실패: ${error.message}`;
 
-    el("status").className = "warn";
+      return;
+    }
+
+    el("cards").innerHTML = stocks
+      .map((stock, index) => {
+        const stockCode = getStockCode(stock.code);
+        const stockName = stock.name || stockCode;
+        const naverUrl = getNaverFinanceUrl(stock.code);
+
+        return `
+          <a
+            class="card"
+            href="${naverUrl}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="${stockName} 네이버 증권에서 보기"
+          >
+            <div class="card-top">
+              <small>#${index + 1}</small>
+              <span class="stock-code">${stockCode}</span>
+            </div>
+
+            <h3>${stockName}</h3>
+
+            <div class="score">
+              ${safeValue(stock.score)}점
+            </div>
+
+            <div class="row">
+              <span>등락</span>
+              <b>${safeValue(stock.change_pct)}%</b>
+            </div>
+
+            <div class="row">
+              <span>체결량</span>
+              <b>${fmt(stock.expected_volume)}</b>
+            </div>
+
+            <div class="row">
+              <span>잔량비</span>
+              <b>${safeValue(stock.bid_ask_ratio)}</b>
+            </div>
+
+            <div class="row">
+              <span>체결강도</span>
+              <b>${safeValue(stock.execution_strength)}</b>
+            </div>
+
+            <div class="naver-link">
+              네이버 증권 ↗
+            </div>
+          </a>
+        `;
+      })
+      .join("");
+}
+
+function openWorkflow() {
+  const newWindow = window.open(
+    WORKFLOW_URL,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+  if (!newWindow) {
+    window.location.href = WORKFLOW_URL;
   }
 }
 
-el("refresh").addEventListener("click", load);
+el("refresh").textContent = "현재 기준 다시 계산";
+el("refresh").addEventListener("click", openWorkflow);
+
+/* 계산 화면에서 홈페이지로 돌아오면 최신 결과 확인 */
+window.addEventListener("focus", () => {
+  setTimeout(load, 1000);
+});
+
+/* 홈페이지를 열어둔 동안 30초마다 새 결과 확인 */
+setInterval(load, 30000);
 
 load();
-
-setInterval(load, 60000);
