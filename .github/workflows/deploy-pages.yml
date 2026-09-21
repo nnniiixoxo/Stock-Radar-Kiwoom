@@ -2,12 +2,19 @@ name: Deploy GitHub Pages
 
 on:
   workflow_dispatch:
+
   push:
     branches:
       - main
     paths:
       - "dist/**"
       - ".github/workflows/deploy-pages.yml"
+
+  workflow_run:
+    workflows:
+      - "Market screen 07:00 and 08:30 KST"
+    types:
+      - completed
 
 permissions:
   contents: read
@@ -20,16 +27,23 @@ concurrency:
 
 jobs:
   deploy:
+    if: >
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout latest main branch
         uses: actions/checkout@v4
+        with:
+          ref: main
 
-      - name: Configure Pages
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Upload website
@@ -37,6 +51,6 @@ jobs:
         with:
           path: dist
 
-      - name: Deploy
+      - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4
