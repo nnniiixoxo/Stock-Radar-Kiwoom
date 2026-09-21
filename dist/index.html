@@ -495,9 +495,7 @@
         stock.bid_ask_ratio
       );
 
-      const strength = displayValue(
-        stock.execution_strength
-      );
+     
 
       return `
         <a
@@ -542,13 +540,7 @@
             </b>
           </div>
 
-          <div class="row">
-            <span>체결강도</span>
-
-            <b class="${valueClass(strength)}">
-              ${strength}
-            </b>
-          </div>
+          
         </a>
       `;
     }
