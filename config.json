@@ -1,23 +1,26 @@
 {
   "mode": "real",
-  "top_n": 20,
-  "min_score": 15,
+  "top_n": 5,
+  "history_candidate_limit": 60,
+  "min_score": 45,
   "filters": {
-    "min_price": 500,
-    "max_price": 1000000,
-    "min_expected_change_pct": -30.0,
-    "max_expected_change_pct": 30.0,
-    "min_expected_volume": 0,
-    "min_bid_ask_ratio": 0,
-    "min_execution_strength": 0
+    "min_price": 2000,
+    "max_price": 300000,
+    "min_expected_change_pct": -2.0,
+    "max_expected_change_pct": 2.0,
+    "min_avg_turnover_20d_million_krw": 3000,
+    "min_rsi": 30,
+    "max_rsi": 65,
+    "min_distance20_pct": -8.0,
+    "max_distance20_pct": 5.0
   },
   "weights": {
-    "expected_change": 24,
-    "expected_volume": 18,
-    "orderbook": 16,
-    "execution_strength": 14,
-    "turnover": 14,
-    "foreign_institution": 8,
-    "market_regime": 6
+    "trend": 20,
+    "rsi_reversal": 15,
+    "distance_recovery": 15,
+    "ma5_10_turn": 10,
+    "turnover_trend": 20,
+    "expected_volume": 10,
+    "orderbook": 10
   }
 }
