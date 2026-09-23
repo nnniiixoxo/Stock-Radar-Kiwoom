@@ -1,12 +1,43 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-09-23T09:07:05.900030+09:00",
+  "generated_at": "2026-09-23T10:41:15.531054+09:00",
   "market_date": "2026-09-23",
   "status": "ok",
-  "message": "새 기준을 통과한 종목이 없습니다.",
-  "candidate_count": 333,
-  "history_checked": 58,
-  "stocks": [],
+  "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
+  "candidate_count": 339,
+  "history_checked": 59,
+  "stocks": [
+    {
+      "code": "010950_AL",
+      "name": "S-Oil",
+      "price": 155000.0,
+      "change": "+0.45",
+      "bid": "+154900",
+      "ask": "+155000",
+      "turnover": 39074.0,
+      "change_pct": 0.45,
+      "expected_volume": 0,
+      "bid_ask_ratio": 1.0,
+      "rsi14": 53.1,
+      "distance20_pct": 1.86,
+      "turnover_ratio_5_20": 0.66,
+      "score": 52.3
+    },
+    {
+      "code": "055550_AL",
+      "name": "신한지주",
+      "price": 110600.0,
+      "volume": "310103",
+      "change_pct": 0.0,
+      "expected_volume": 310103,
+      "turnover": 0.0,
+      "bid_ask_ratio": 1.0,
+      "rsi14": 42.3,
+      "distance20_pct": -0.98,
+      "turnover_ratio_5_20": 0.83,
+      "score": 45.1
+    }
+  ],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
   ],
