@@ -1,26 +1,27 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-09-28T09:23:07.199163+09:00",
+  "generated_at": "2026-09-28T10:54:52.334033+09:00",
   "market_date": "2026-09-28",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 350,
-  "history_checked": 60,
+  "candidate_count": 340,
+  "history_checked": 59,
   "stocks": [
     {
-      "code": "067290_AL",
-      "name": "JW신약",
-      "price": 3165.0,
-      "change": "+0.80",
-      "volume": "1412006",
-      "change_pct": 0.8,
-      "expected_volume": 1412006,
-      "turnover": 0.0,
+      "code": "055550_AL",
+      "name": "신한지주",
+      "price": 111000.0,
+      "change": "+1.56",
+      "bid": "+111000",
+      "ask": "+111100",
+      "turnover": 45285.0,
+      "change_pct": 1.56,
+      "expected_volume": 0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 47.8,
-      "distance20_pct": -4.0,
-      "turnover_ratio_5_20": 0.14,
-      "score": 49.7
+      "rsi14": 50.4,
+      "distance20_pct": -0.71,
+      "turnover_ratio_5_20": 0.85,
+      "score": 49.0
     }
   ],
   "warnings": [
