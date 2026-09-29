@@ -1,27 +1,41 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-09-29T10:34:32.759743+09:00",
+  "generated_at": "2026-09-29T11:40:21.728259+09:00",
   "market_date": "2026-09-29",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 341,
+  "candidate_count": 351,
   "history_checked": 59,
   "stocks": [
     {
+      "code": "003490_AL",
+      "name": "대한항공",
+      "price": 31250.0,
+      "volume": "844711",
+      "change_pct": 0.0,
+      "expected_volume": 844711,
+      "turnover": 0.0,
+      "bid_ask_ratio": 1.0,
+      "rsi14": 57.1,
+      "distance20_pct": 4.92,
+      "turnover_ratio_5_20": 1.21,
+      "score": 54.0
+    },
+    {
       "code": "066570_AL",
       "name": "LG전자",
-      "price": 213000.0,
-      "change": "-0.70",
-      "bid": "-212500",
-      "ask": "-213000",
-      "turnover": 97187.0,
-      "change_pct": -0.7,
+      "price": 213500.0,
+      "change": "-0.47",
+      "bid": "-213500",
+      "ask": "-214000",
+      "turnover": 116805.0,
+      "change_pct": -0.47,
       "expected_volume": 0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 47.7,
-      "distance20_pct": 3.87,
-      "turnover_ratio_5_20": 1.14,
-      "score": 46.6
+      "rsi14": 48.0,
+      "distance20_pct": 4.1,
+      "turnover_ratio_5_20": 1.15,
+      "score": 46.5
     }
   ],
   "warnings": [
