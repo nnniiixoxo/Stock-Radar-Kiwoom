@@ -1,27 +1,27 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-09-30T10:08:51.614660+09:00",
+  "generated_at": "2026-09-30T11:17:38.286128+09:00",
   "market_date": "2026-09-30",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 338,
+  "candidate_count": 336,
   "history_checked": 60,
   "stocks": [
     {
       "code": "066570_AL",
       "name": "LG전자",
-      "price": 215000.0,
-      "change": "+0.70",
-      "bid": "+215000",
-      "ask": "+215500",
-      "turnover": 111633.0,
-      "change_pct": 0.7,
+      "price": 214000.0,
+      "change": "+0.23",
+      "bid": "213500",
+      "ask": "+214000",
+      "turnover": 133286.0,
+      "change_pct": 0.23,
       "expected_volume": 0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 57.1,
-      "distance20_pct": 4.77,
-      "turnover_ratio_5_20": 1.25,
-      "score": 47.3
+      "rsi14": 56.1,
+      "distance20_pct": 4.3,
+      "turnover_ratio_5_20": 1.26,
+      "score": 48.8
     }
   ],
   "warnings": [
