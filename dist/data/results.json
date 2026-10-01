@@ -1,27 +1,25 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-09-30T20:57:44.677591+09:00",
-  "market_date": "2026-09-30",
+  "generated_at": "2026-10-01T10:08:50.320655+09:00",
+  "market_date": "2026-10-01",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 233,
-  "history_checked": 58,
+  "candidate_count": 339,
+  "history_checked": 60,
   "stocks": [
     {
-      "code": "066570_AL",
-      "name": "LG전자",
-      "price": 213500.0,
-      "change": "0.00",
-      "bid": "213500",
-      "ask": "+214000",
-      "turnover": 256631.0,
+      "code": "028670_AL",
+      "name": "팬오션",
+      "price": 5780.0,
+      "volume": "1304453",
       "change_pct": 0.0,
-      "expected_volume": 0,
+      "expected_volume": 1304453,
+      "turnover": 0.0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 55.6,
-      "distance20_pct": 4.07,
-      "turnover_ratio_5_20": 1.33,
-      "score": 50.9
+      "rsi14": 40.3,
+      "distance20_pct": -1.11,
+      "turnover_ratio_5_20": 0.75,
+      "score": 63.3
     }
   ],
   "warnings": [
