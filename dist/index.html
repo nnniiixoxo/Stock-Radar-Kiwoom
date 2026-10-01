@@ -5,7 +5,7 @@
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
   <meta
@@ -17,339 +17,490 @@
 
   <style>
     :root {
-      color-scheme: dark;
-      --bg: #06111f;
-      --panel: #0d2134;
-      --line: #1d3b53;
-      --text: #ecf6ff;
-      --muted: #8fb0c8;
-      --cyan: #2ce0d0;
-      --red: #ff5d68;
-      --blue: #4d9fff;
-      --warning: #ffb454;
+      --background: #061423;
+      --background-light: #0a2033;
+      --card: #0c2235;
+      --card-hover: #102a40;
+      --border: #1c425d;
+      --border-light: #28516b;
+
+      --text: #f1f7ff;
+      --subtext: #8fcaf1;
+      --muted: #70a8ce;
+
+      --accent: #28d8cf;
+      --positive: #ff4358;
+      --negative: #3999ff;
+      --neutral: #3999ff;
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      background: var(--background);
+    }
+
     body {
       margin: 0;
+      min-height: 100vh;
+      background: var(--background);
       color: var(--text);
-      background:
-        radial-gradient(
-          circle at top,
-          #0b2941,
-          var(--bg) 45%
-        );
+
       font-family:
-        system-ui,
         -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
         "Noto Sans KR",
+        "Segoe UI",
         sans-serif;
     }
 
-    main {
-      max-width: 1180px;
-      margin: auto;
-      padding: 30px 18px;
+    button,
+    a {
+      font-family: inherit;
     }
 
-    header,
-    .status,
-    .section-title,
-    .row,
-    .card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 60px;
     }
 
     header {
-      margin-bottom: 14px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 20px;
     }
 
     .brand-small {
-      color: var(--cyan);
-      font-size: 0.75rem;
-      font-weight: 900;
-      letter-spacing: 0.12em;
+      display: block;
+      margin-bottom: 12px;
+      color: var(--accent);
+
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
     }
 
     h1 {
-      margin: 4px 0 0;
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin: 0;
+      color: var(--text);
+
+      font-size: clamp(40px, 5.5vw, 66px);
+      font-weight: 750;
+      line-height: 1;
+      letter-spacing: -2px;
     }
 
     h1 span {
-      color: var(--cyan);
+      color: var(--accent);
     }
 
-    button {
+    #refresh {
+      flex: 0 0 auto;
       border: 0;
-      border-radius: 11px;
-      padding: 12px 16px;
-      color: #03201f;
-      background: var(--cyan);
-      font-weight: 900;
+      border-radius: 14px;
+      padding: 14px 19px;
+
+      background: var(--accent);
+      color: #06202a;
+
+      font-size: 14px;
+      font-weight: 800;
       cursor: pointer;
+
+      transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
     }
 
-    .status,
-    .note,
-    .card {
-      background: rgba(13, 33, 52, 0.92);
-      border: 1px solid var(--line);
-      border-radius: 14px;
+    #refresh:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    #refresh:active {
+      transform: translateY(0);
     }
 
     .status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+
+      min-height: 48px;
       margin-bottom: 12px;
-      padding: 13px 16px;
-      font-size: 0.9rem;
+      padding: 12px 16px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
     }
 
-    .status .ok {
-      color: var(--cyan);
+    #status {
+      color: var(--accent);
+      font-size: 15px;
+      font-weight: 750;
     }
 
-    .status .warn {
-      color: var(--warning);
-    }
-
-    #updated,
-    .note p,
-    footer {
-      color: var(--muted);
+    #updated {
+      color: var(--subtext);
+      font-size: 13px;
+      text-align: right;
     }
 
     .note {
-      margin-bottom: 18px;
-      padding: 14px 16px;
+      margin-bottom: 26px;
+      padding: 16px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
     }
 
     .note h2 {
-      margin: 0 0 4px;
-      font-size: 1.15rem;
+      margin: 0 0 5px;
+
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1.3;
     }
 
     .note p {
       margin: 0;
-      font-size: 0.84rem;
-      line-height: 1.5;
+
+      color: var(--subtext);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 10px;
     }
 
     .section-title h2 {
-      margin: 9px 0;
-      font-size: 1.3rem;
+      margin: 0;
+
+      color: var(--text);
+      font-size: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    #count {
+      color: var(--text);
+      font-size: 14px;
     }
 
     .cards {
       display: grid;
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
     }
 
-    .card {
+    .stock-card {
       display: block;
       min-width: 0;
       padding: 13px;
+
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--card);
       color: var(--text);
       text-decoration: none;
-      overflow: hidden;
-      cursor: pointer;
-      background: rgba(13, 33, 52, 0.92);
-      border: 1px solid var(--line);
-      border-radius: 14px;
+
       transition:
-        transform 0.16s ease,
-        border-color 0.16s ease,
-        box-shadow 0.16s ease;
+        transform 0.15s ease,
+        border-color 0.15s ease,
+        background 0.15s ease;
     }
 
-    .card:hover {
+    .stock-card:hover {
       transform: translateY(-2px);
-      border-color: var(--cyan);
-      box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.25);
+      border-color: var(--accent);
+      background: var(--card-hover);
     }
 
-    .card:active {
-      transform: scale(0.98);
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+
+      margin-bottom: 7px;
     }
 
-    .card small {
-      color: var(--cyan);
-      font-size: 0.72rem;
-      font-weight: 900;
-    }
-
-    .stock-code {
-      color: var(--muted);
-      font-size: 0.72rem;
-    }
-
-    .card h3 {
-      min-height: 2.6em;
-      margin: 5px 0 0;
-      font-size: 1rem;
-      line-height: 1.3;
-      word-break: keep-all;
-      overflow-wrap: anywhere;
-    }
-
-    /* 총점 글자를 기존보다 한 단계 작게 */
-    .score {
-      margin: 4px 0;
-      color: var(--cyan);
-      font-size: 1.2rem;
-      font-weight: 900;
-    }
-
-    .row {
-      margin-top: 6px;
-      padding-top: 6px;
-      color: var(--muted);
-      border-top: 1px solid var(--line);
-      font-size: 0.8rem;
-    }
-
-    /* 등락률만 다른 수치보다 크게 표시 */
-    .change-row {
-      font-size: 0.95rem;
+    .rank {
+      color: var(--accent);
+      font-size: 12px;
       font-weight: 800;
     }
 
-    .change-row b {
-      font-size: 1.05rem;
+    .code {
+      color: var(--subtext);
+      font-size: 11px;
     }
 
-    /* 0보다 큰 값 */
+    .stock-name {
+      min-height: 42px;
+      margin: 0 0 8px;
+
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.3;
+
+      overflow-wrap: anywhere;
+      word-break: keep-all;
+    }
+
+    .score {
+      margin-bottom: 7px;
+
+      color: var(--accent);
+      font-size: 20px;
+      font-weight: 850;
+      line-height: 1.2;
+    }
+
+    .data-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+
+      min-height: 31px;
+      padding: 6px 0;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .data-label {
+      color: var(--subtext);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .data-value {
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 750;
+      text-align: right;
+      overflow-wrap: anywhere;
+    }
+
+    .data-value.change {
+      font-size: 16px;
+      font-weight: 850;
+    }
+
     .positive {
-      color: var(--red) !important;
-      font-weight: 900;
+      color: var(--positive);
     }
 
-    /* 0 이하 값 */
-    .negative {
-      color: var(--blue) !important;
-      font-weight: 900;
+    .negative,
+    .zero {
+      color: var(--negative);
     }
 
     .empty {
       grid-column: 1 / -1;
-      padding: 36px;
-      color: var(--muted);
-      border: 1px dashed var(--line);
-      border-radius: 14px;
+      padding: 45px 20px;
+
+      border: 1px dashed var(--border-light);
+      border-radius: 15px;
+
+      color: var(--subtext);
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .error-message {
+      grid-column: 1 / -1;
+      padding: 35px 20px;
+
+      border: 1px solid #7c3340;
+      border-radius: 15px;
+      background: #281522;
+
+      color: #ff9bab;
+      font-size: 14px;
+      line-height: 1.6;
       text-align: center;
     }
 
     footer {
-      padding: 25px 0;
-      font-size: 0.8rem;
+      padding: 25px 0 0;
+
+      color: var(--subtext);
+      font-size: 12px;
       text-align: center;
     }
 
-    @media (max-width: 850px) {
+    @media (max-width: 900px) {
       .cards {
-        grid-template-columns:
-          repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 620px) {
+    @media (max-width: 640px) {
       main {
-        padding: 16px 9px;
+        width: min(100% - 20px, 1180px);
+        padding: 18px 0 35px;
       }
 
       header {
-        align-items: stretch;
-        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .brand-small {
+        margin-bottom: 8px;
+        font-size: 9px;
+        letter-spacing: 1.2px;
       }
 
       h1 {
-        font-size: 2.05rem;
+        font-size: clamp(29px, 9.2vw, 42px);
+        letter-spacing: -1.5px;
       }
 
-      header button {
-        width: 100%;
-        padding: 11px;
+      #refresh {
+        max-width: 110px;
+        padding: 11px 12px;
+        border-radius: 12px;
+
+        font-size: 11px;
+        line-height: 1.3;
       }
 
       .status {
-        padding: 10px;
-        font-size: 0.73rem;
+        min-height: 44px;
+        margin-bottom: 10px;
+        padding: 10px 12px;
+      }
+
+      #status {
+        font-size: 12px;
       }
 
       #updated {
-        font-size: 0.68rem;
-        text-align: right;
+        max-width: 52%;
+        font-size: 10px;
+        line-height: 1.35;
       }
 
       .note {
-        margin-bottom: 11px;
-        padding: 10px;
+        margin-bottom: 20px;
+        padding: 12px;
       }
 
       .note h2 {
-        font-size: 0.93rem;
+        font-size: 15px;
       }
 
       .note p {
-        font-size: 0.7rem;
+        margin-top: 4px;
+        font-size: 10px;
+        line-height: 1.45;
+      }
+
+      .section-title {
+        margin-bottom: 8px;
       }
 
       .section-title h2 {
-        font-size: 1.05rem;
+        font-size: 20px;
       }
 
       #count {
-        font-size: 0.78rem;
+        font-size: 12px;
       }
 
       .cards {
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-        gap: 7px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
       }
 
-      .card {
-        padding: 9px;
-        border-radius: 11px;
+      .stock-card {
+        padding: 10px;
+        border-radius: 13px;
       }
 
-      .card h3 {
-        min-height: 2.6em;
-        font-size: 0.84rem;
+      .card-top {
+        margin-bottom: 5px;
       }
 
-      .card small,
-      .stock-code {
-        font-size: 0.65rem;
+      .rank {
+        font-size: 10px;
       }
 
-      /* 휴대폰 총점 크기 축소 */
+      .code {
+        font-size: 9px;
+      }
+
+      .stock-name {
+        min-height: 36px;
+        margin-bottom: 6px;
+
+        font-size: 13px;
+        line-height: 1.3;
+      }
+
       .score {
-        font-size: 1rem;
+        margin-bottom: 5px;
+        font-size: 17px;
       }
 
-      .row {
-        gap: 4px;
-        margin-top: 5px;
-        padding-top: 5px;
-        font-size: 0.68rem;
+      .data-row {
+        min-height: 27px;
+        padding: 5px 0;
       }
 
-      /* 휴대폰 등락률 확대 */
-      .change-row {
-        font-size: 0.78rem;
+      .data-label {
+        font-size: 10px;
       }
 
-      .change-row b {
-        font-size: 0.9rem;
+      .data-value {
+        font-size: 10px;
+      }
+
+      .data-value.change {
+        font-size: 13px;
+      }
+
+      footer {
+        padding-top: 20px;
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      main {
+        width: min(100% - 14px, 1180px);
+      }
+
+      .stock-card {
+        padding: 8px;
+      }
+
+      .stock-name {
+        font-size: 12px;
+      }
+
+      .data-label,
+      .data-value {
+        font-size: 9px;
       }
     }
   </style>
@@ -359,9 +510,9 @@
   <main>
     <header>
       <div>
-        <div class="brand-small">
+        <span class="brand-small">
           KOREA PRE-MARKET RADAR
-        </div>
+        </span>
 
         <h1>
           Stock Radar
@@ -370,7 +521,7 @@
       </div>
 
       <button
-        id="calculate"
+        id="refresh"
         type="button"
       >
         현재 기준 다시 계산
@@ -378,7 +529,10 @@
     </header>
 
     <section class="status">
-      <b id="status">최신 결과 불러오는 중</b>
+      <b id="status">
+        결과 불러오는 중
+      </b>
+
       <span id="updated"></span>
     </section>
 
@@ -388,9 +542,8 @@
       </h2>
 
       <p>
-        예상체결 등락·거래량, 호가 불균형,
-        체결강도, 거래대금, 외국인·기관 흐름을
-        점수화합니다.
+        정배열, RSI 반전, 20일선 이격도 회복,
+        거래대금 증가와 장전 수급을 종합해 점수화합니다.
       </p>
     </section>
 
@@ -415,241 +568,441 @@
     const WORKFLOW_URL =
       "https://github.com/nnniiixoxo/Stock-Radar-Kiwoom/actions/workflows/market-screen.yml";
 
-    function getElement(id) {
-      return document.getElementById(id);
-    }
+    const RESULT_URL =
+      `./data/results.json?t=${Date.now()}`;
 
-    function formatNumber(value) {
-      return new Intl.NumberFormat("ko-KR").format(
-        Number(value || 0)
+    const refreshButton =
+      document.getElementById("refresh");
+
+    const statusElement =
+      document.getElementById("status");
+
+    const updatedElement =
+      document.getElementById("updated");
+
+    const countElement =
+      document.getElementById("count");
+
+    const cardsElement =
+      document.getElementById("cards");
+
+
+    function firstValue(...values) {
+      return values.find(
+        value =>
+          value !== undefined &&
+          value !== null &&
+          value !== ""
       );
     }
 
-    function numericValue(value) {
-      const cleaned = String(value ?? "0")
-        .replace(/,/g, "")
-        .replace(/%/g, "")
-        .replace(/\+/g, "");
 
-      const parsed = Number(cleaned);
-
-      return Number.isFinite(parsed)
-        ? parsed
-        : 0;
-    }
-
-    /*
-      요청 기준:
-      0보다 크면 빨간색
-      0 이하면 파란색
-    */
-    function valueClass(value) {
-      return numericValue(value) > 0
-        ? "positive"
-        : "negative";
-    }
-
-    function stockCode(value) {
-      const match = String(value || "").match(/\d{6}/);
-      return match ? match[0] : "";
-    }
-
-    function naverUrl(value) {
-      const code = stockCode(value);
-
-      if (!code) {
-        return "https://finance.naver.com/";
-      }
-
-      return (
-        "https://finance.naver.com/item/main.naver?code="
-        + code
-      );
-    }
-
-    function displayValue(value) {
+    function toNumber(value) {
       if (
         value === undefined ||
         value === null ||
         value === ""
       ) {
-        return "0";
+        return 0;
       }
 
-      return value;
+      const cleaned = String(value)
+        .replace(/,/g, "")
+        .replace(/[^0-9.+-]/g, "");
+
+      const result = Number(cleaned);
+
+      return Number.isFinite(result)
+        ? result
+        : 0;
     }
 
-    function makeCard(stock, index) {
-      const code = stockCode(stock.code);
-      const name = stock.name || code;
 
-      const change = displayValue(
-        stock.change_pct
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+
+    function extractCode(stock) {
+      const rawCode = String(
+        firstValue(
+          stock.code,
+          stock.stk_cd,
+          stock.종목코드,
+          ""
+        )
       );
 
-      const volume = displayValue(
-        stock.expected_volume
+      const match = rawCode.match(/\d{6}/);
+
+      return match ? match[0] : "";
+    }
+
+
+    function getStockName(stock) {
+      return firstValue(
+        stock.name,
+        stock.stk_nm,
+        stock.종목명,
+        "종목명 없음"
+      );
+    }
+
+
+    function getChange(stock) {
+      return toNumber(
+        firstValue(
+          stock.change_pct,
+          stock.change,
+          stock.등락,
+          stock.등락률,
+          stock.예상등락,
+          0
+        )
+      );
+    }
+
+
+    function getVolume(stock) {
+      return toNumber(
+        firstValue(
+          stock.expected_volume,
+          stock.volume,
+          stock.체결량,
+          stock.예상체결량,
+          0
+        )
+      );
+    }
+
+
+    function getRatio(stock) {
+      return toNumber(
+        firstValue(
+          stock.bid_ask_ratio,
+          stock.ratio,
+          stock.잔량비,
+          stock.호가잔량비교,
+          0
+        )
+      );
+    }
+
+
+    function getScore(stock) {
+      return toNumber(
+        firstValue(
+          stock.score,
+          stock.점수,
+          0
+        )
+      );
+    }
+
+
+    function numberClass(value) {
+      if (value > 0) {
+        return "positive";
+      }
+
+      if (value < 0) {
+        return "negative";
+      }
+
+      return "zero";
+    }
+
+
+    function formatNumber(value) {
+      return Math.round(value).toLocaleString("ko-KR");
+    }
+
+
+    function formatRatio(value) {
+      return value.toLocaleString(
+        "ko-KR",
+        {
+          maximumFractionDigits: 2
+        }
+      );
+    }
+
+
+    function formatScore(value) {
+      return value.toLocaleString(
+        "ko-KR",
+        {
+          maximumFractionDigits: 1
+        }
+      );
+    }
+
+
+    function formatDate(value) {
+      if (!value) {
+        return "";
+      }
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return String(value);
+      }
+
+      return date.toLocaleString(
+        "ko-KR",
+        {
+          timeZone: "Asia/Seoul",
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          second: "2-digit"
+        }
+      );
+    }
+
+
+    function createStockCard(stock, index) {
+      const code = extractCode(stock);
+      const name = getStockName(stock);
+
+      const score = getScore(stock);
+      const change = getChange(stock);
+      const volume = getVolume(stock);
+      const ratio = getRatio(stock);
+
+      const card = document.createElement("a");
+
+      card.className = "stock-card";
+
+      if (code) {
+        card.href =
+          `https://m.stock.naver.com/domestic/stock/${code}/total`;
+
+        card.target = "_blank";
+        card.rel = "noopener noreferrer";
+      } else {
+        card.href = "#";
+
+        card.addEventListener(
+          "click",
+          event => event.preventDefault()
+        );
+      }
+
+      card.setAttribute(
+        "aria-label",
+        `${name} 네이버페이 증권 종목 페이지 열기`
       );
 
-      const ratio = displayValue(
-        stock.bid_ask_ratio
-      );
+      card.innerHTML = `
+        <div class="card-top">
+          <span class="rank">
+            #${index + 1}
+          </span>
 
-     
+          <span class="code">
+            ${escapeHtml(code)}
+          </span>
+        </div>
 
-      return `
-        <a
-          class="card"
-          href="${naverUrl(stock.code)}"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="${name} 네이버 증권에서 보기"
-        >
-          <div class="card-top">
-            <small>#${index + 1}</small>
-            <span class="stock-code">${code}</span>
-          </div>
+        <h3 class="stock-name">
+          ${escapeHtml(name)}
+        </h3>
 
-          <h3>${name}</h3>
+        <div class="score">
+          ${formatScore(score)}점
+        </div>
 
-          <div class="score">
-            ${displayValue(stock.score)}점
-          </div>
+        <div class="data-row">
+          <span class="data-label">
+            예상등락
+          </span>
 
-          <div class="row change-row">
-            <span>등락</span>
+          <span
+            class="data-value change ${numberClass(change)}"
+          >
+            ${change > 0 ? "+" : ""}${formatRatio(change)}%
+          </span>
+        </div>
 
-            <b class="${valueClass(change)}">
-              ${change}%
-            </b>
-          </div>
+        <div class="data-row">
+          <span class="data-label">
+            체결량
+          </span>
 
-          <div class="row">
-            <span>체결량</span>
+          <span
+            class="data-value ${numberClass(volume)}"
+          >
+            ${formatNumber(volume)}
+          </span>
+        </div>
 
-            <b class="${valueClass(volume)}">
-              ${formatNumber(volume)}
-            </b>
-          </div>
+        <div class="data-row">
+          <span class="data-label">
+            잔량비
+          </span>
 
-          <div class="row">
-            <span>잔량비</span>
-
-            <b class="${valueClass(ratio)}">
-              ${ratio}
-            </b>
-          </div>
-
-          
-        </a>
+          <span
+            class="data-value ${numberClass(ratio)}"
+          >
+            ${formatRatio(ratio)}
+          </span>
+        </div>
       `;
+
+      return card;
     }
 
-    async function loadStocks() {
-      const status = getElement("status");
-      const cards = getElement("cards");
+
+    function showEmpty(message) {
+      cardsElement.innerHTML = "";
+
+      const empty = document.createElement("div");
+
+      empty.className = "empty";
+      empty.textContent = message;
+
+      cardsElement.appendChild(empty);
+      countElement.textContent = "0종목";
+    }
+
+
+    function showError(message) {
+      cardsElement.innerHTML = "";
+
+      const error = document.createElement("div");
+
+      error.className = "error-message";
+      error.textContent = message;
+
+      cardsElement.appendChild(error);
+      countElement.textContent = "0종목";
+    }
+
+
+    async function loadResults() {
+      statusElement.textContent =
+        "최신 결과 확인 중";
+
+      updatedElement.textContent = "";
 
       try {
-        status.textContent =
-          "최신 결과 불러오는 중";
-
-        status.className = "";
-
         const response = await fetch(
-          "data/results.json?t="
-          + Date.now(),
+          RESULT_URL,
           {
-            cache: "no-store"
+            cache: "no-store",
+            headers: {
+              "Cache-Control": "no-cache"
+            }
           }
         );
 
         if (!response.ok) {
           throw new Error(
-            "데이터 응답 오류 "
-            + response.status
+            `결과 파일을 불러오지 못했습니다. HTTP ${response.status}`
           );
         }
 
         const data = await response.json();
 
-        const stocks = Array.isArray(data.stocks)
-          ? data.stocks
+        const stocks = firstValue(
+          data.stocks,
+          data.주식,
+          data.results,
+          []
+        );
+
+        const stockList = Array.isArray(stocks)
+          ? stocks
           : [];
 
-        status.textContent =
-          data.status === "ok"
-            ? "정상 업데이트"
-            : data.message || "확인 필요";
+        const generatedAt = firstValue(
+          data.generated_at,
+          data.생성시간,
+          data.updated_at,
+          ""
+        );
 
-        status.className =
-          data.status === "ok"
-            ? "ok"
-            : "warn";
+        const status = firstValue(
+          data.status,
+          data.상태,
+          ""
+        );
 
-        getElement("updated").textContent =
-          data.generated_at
-            ? new Date(
-                data.generated_at
-              ).toLocaleString("ko-KR")
-            : "";
+        const message = firstValue(
+          data.message,
+          data.메시지,
+          ""
+        );
 
-        getElement("count").textContent =
-          stocks.length + "종목";
+        cardsElement.innerHTML = "";
 
-        if (stocks.length > 0) {
-          cards.innerHTML = stocks
-            .map(makeCard)
-            .join("");
+        if (status === "ok" || stockList.length > 0) {
+          statusElement.textContent =
+            "정상 업데이트";
         } else {
-          cards.innerHTML = `
-            <div class="empty">
-              ${
-                data.message ||
-                "조건을 통과한 종목이 없습니다."
-              }
-            </div>
-          `;
+          statusElement.textContent =
+            message || "결과 없음";
         }
+
+        updatedElement.textContent =
+          formatDate(generatedAt);
+
+        countElement.textContent =
+          `${stockList.length}종목`;
+
+        if (stockList.length === 0) {
+          showEmpty(
+            message ||
+            "현재 기준을 통과한 종목이 없습니다."
+          );
+
+          return;
+        }
+
+        stockList.forEach(
+          (stock, index) => {
+            cardsElement.appendChild(
+              createStockCard(stock, index)
+            );
+          }
+        );
+
       } catch (error) {
-        status.textContent =
-          "데이터를 불러오지 못했습니다: "
-          + error.message;
+        console.error(error);
 
-        status.className = "warn";
+        statusElement.textContent =
+          "결과 불러오기 실패";
 
-        cards.innerHTML = `
-          <div class="empty">
-            페이지를 새로고침해 주세요.
-          </div>
-        `;
+        showError(
+          "최신 결과를 불러오지 못했습니다. " +
+          "잠시 후 페이지를 새로고침해 주세요."
+        );
       }
     }
 
-    getElement("calculate").addEventListener(
+
+    refreshButton.addEventListener(
       "click",
-      function () {
-        const opened = window.open(
+      () => {
+        window.open(
           WORKFLOW_URL,
-          "_blank"
+          "_blank",
+          "noopener,noreferrer"
         );
-
-        if (!opened) {
-          window.location.href =
-            WORKFLOW_URL;
-        }
       }
     );
 
-    window.addEventListener(
-      "focus",
-      function () {
-        setTimeout(loadStocks, 1000);
-      }
-    );
 
-    setInterval(loadStocks, 30000);
-
-    loadStocks();
+    loadResults();
   </script>
 </body>
 </html>
