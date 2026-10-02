@@ -1,12 +1,30 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-01T11:18:23.305382+09:00",
-  "market_date": "2026-10-01",
+  "generated_at": "2026-10-02T10:23:05.500996+09:00",
+  "market_date": "2026-10-02",
   "status": "ok",
-  "message": "새 기준을 통과한 종목이 없습니다.",
-  "candidate_count": 351,
-  "history_checked": 59,
-  "stocks": [],
+  "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
+  "candidate_count": 360,
+  "history_checked": 60,
+  "stocks": [
+    {
+      "code": "316140_AL",
+      "name": "우리금융지주",
+      "price": 33500.0,
+      "change": "+0.75",
+      "bid": "+33500",
+      "ask": "+33500",
+      "turnover": 37325.0,
+      "volume": "1118628",
+      "change_pct": 0.75,
+      "expected_volume": 1118628,
+      "bid_ask_ratio": 1.0,
+      "rsi14": 47.4,
+      "distance20_pct": -4.58,
+      "turnover_ratio_5_20": 1.41,
+      "score": 53.7
+    }
+  ],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
   ],
