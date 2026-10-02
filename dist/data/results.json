@@ -1,28 +1,27 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-02T10:23:05.500996+09:00",
+  "generated_at": "2026-10-02T11:28:57.252591+09:00",
   "market_date": "2026-10-02",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 360,
+  "candidate_count": 365,
   "history_checked": 60,
   "stocks": [
     {
       "code": "316140_AL",
       "name": "우리금융지주",
-      "price": 33500.0,
-      "change": "+0.75",
-      "bid": "+33500",
-      "ask": "+33500",
-      "turnover": 37325.0,
-      "volume": "1118628",
-      "change_pct": 0.75,
-      "expected_volume": 1118628,
+      "price": 33600.0,
+      "change": "+1.05",
+      "bid": "+33600",
+      "ask": "+33650",
+      "turnover": 53669.0,
+      "change_pct": 1.05,
+      "expected_volume": 0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 47.4,
-      "distance20_pct": -4.58,
-      "turnover_ratio_5_20": 1.41,
-      "score": 53.7
+      "rsi14": 47.6,
+      "distance20_pct": -4.44,
+      "turnover_ratio_5_20": 1.42,
+      "score": 47.3
     }
   ],
   "warnings": [
