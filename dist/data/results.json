@@ -1,10 +1,10 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-05T09:32:19.654472+09:00",
+  "generated_at": "2026-10-05T11:16:56.710848+09:00",
   "market_date": "2026-10-05",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 336,
+  "candidate_count": 338,
   "history_checked": 58,
   "stocks": [
     {
