@@ -1,27 +1,25 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-05T11:16:56.710848+09:00",
-  "market_date": "2026-10-05",
+  "generated_at": "2026-10-06T11:06:47.775460+09:00",
+  "market_date": "2026-10-06",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 338,
+  "candidate_count": 352,
   "history_checked": 58,
   "stocks": [
     {
-      "code": "316140_AL",
-      "name": "우리금융지주",
-      "price": 33750.0,
-      "change": "+1.50",
-      "bid": "+33700",
-      "ask": "+33750",
-      "turnover": 120485.0,
-      "change_pct": 1.5,
-      "expected_volume": 0,
+      "code": "028670_AL",
+      "name": "팬오션",
+      "price": 6040.0,
+      "volume": "1696392",
+      "change_pct": 0.0,
+      "expected_volume": 1696392,
+      "turnover": 0.0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 48.6,
-      "distance20_pct": -4.04,
-      "turnover_ratio_5_20": 1.47,
-      "score": 49.2
+      "rsi14": 50.0,
+      "distance20_pct": 2.36,
+      "turnover_ratio_5_20": 1.13,
+      "score": 57.0
     }
   ],
   "warnings": [
