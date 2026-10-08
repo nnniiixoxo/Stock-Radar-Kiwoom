@@ -1,25 +1,39 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-08T10:36:50.373111+09:00",
+  "generated_at": "2026-10-08T11:50:44.435699+09:00",
   "market_date": "2026-10-08",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 343,
-  "history_checked": 59,
+  "candidate_count": 353,
+  "history_checked": 60,
   "stocks": [
     {
       "code": "028670_AL",
       "name": "팬오션",
-      "price": 6050.0,
-      "volume": "678520",
+      "price": 6070.0,
+      "volume": "829823",
       "change_pct": 0.0,
-      "expected_volume": 678520,
+      "expected_volume": 829823,
       "turnover": 0.0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 59.6,
-      "distance20_pct": 2.52,
-      "turnover_ratio_5_20": 1.24,
-      "score": 57.4
+      "rsi14": 59.9,
+      "distance20_pct": 2.68,
+      "turnover_ratio_5_20": 1.25,
+      "score": 57.2
+    },
+    {
+      "code": "413630_AL",
+      "name": "씨피시스템",
+      "price": 4065.0,
+      "volume": "301753",
+      "change_pct": 0.0,
+      "expected_volume": 301753,
+      "turnover": 0.0,
+      "bid_ask_ratio": 1.0,
+      "rsi14": 35.1,
+      "distance20_pct": -4.1,
+      "turnover_ratio_5_20": 0.33,
+      "score": 49.5
     }
   ],
   "warnings": [
