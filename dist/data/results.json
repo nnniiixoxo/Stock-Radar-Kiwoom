@@ -1,11 +1,11 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-09T10:48:44.307346+09:00",
+  "generated_at": "2026-10-09T12:02:04.078769+09:00",
   "market_date": "2026-10-09",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 320,
-  "history_checked": 60,
+  "candidate_count": 323,
+  "history_checked": 59,
   "stocks": [
     {
       "code": "028670_AL",
