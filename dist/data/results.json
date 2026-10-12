@@ -1,10 +1,10 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-12T10:04:40.107391+09:00",
+  "generated_at": "2026-10-12T11:35:29.092739+09:00",
   "market_date": "2026-10-12",
   "status": "ok",
   "message": "새 기준을 통과한 종목이 없습니다.",
-  "candidate_count": 338,
+  "candidate_count": 349,
   "history_checked": 59,
   "stocks": [],
   "warnings": [
