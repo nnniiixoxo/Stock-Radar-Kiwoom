@@ -1,11 +1,11 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-13T11:54:15.563668+09:00",
+  "generated_at": "2026-10-13T12:45:21.006518+09:00",
   "market_date": "2026-10-13",
   "status": "ok",
   "message": "새 기준을 통과한 종목이 없습니다.",
-  "candidate_count": 345,
-  "history_checked": 58,
+  "candidate_count": 328,
+  "history_checked": 52,
   "stocks": [],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
