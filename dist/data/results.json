@@ -1,12 +1,27 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-19T08:58:43.775031+09:00",
+  "generated_at": "2026-10-19T10:31:58.639165+09:00",
   "market_date": "2026-10-19",
   "status": "ok",
-  "message": "새 기준을 통과한 종목이 없습니다.",
-  "candidate_count": 246,
-  "history_checked": 44,
-  "stocks": [],
+  "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
+  "candidate_count": 341,
+  "history_checked": 60,
+  "stocks": [
+    {
+      "code": "204620_AL",
+      "name": "글로벌텍스프리",
+      "price": 5650.0,
+      "volume": "753681",
+      "change_pct": 0.0,
+      "expected_volume": 753681,
+      "turnover": 0.0,
+      "bid_ask_ratio": 1.0,
+      "rsi14": 44.2,
+      "distance20_pct": -2.85,
+      "turnover_ratio_5_20": 1.69,
+      "score": 63.5
+    }
+  ],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
   ],
