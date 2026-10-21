@@ -1,12 +1,29 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-20T11:00:23.727714+09:00",
-  "market_date": "2026-10-20",
+  "generated_at": "2026-10-21T09:25:37.957746+09:00",
+  "market_date": "2026-10-21",
   "status": "ok",
-  "message": "새 기준을 통과한 종목이 없습니다.",
-  "candidate_count": 326,
-  "history_checked": 58,
-  "stocks": [],
+  "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
+  "candidate_count": 341,
+  "history_checked": 60,
+  "stocks": [
+    {
+      "code": "096770_AL",
+      "name": "SK이노베이션",
+      "price": 150000.0,
+      "change": "+1.28",
+      "bid": "+149900",
+      "ask": "+150000",
+      "turnover": 24556.0,
+      "change_pct": 1.28,
+      "expected_volume": 0,
+      "bid_ask_ratio": 1.0,
+      "rsi14": 51.6,
+      "distance20_pct": -1.07,
+      "turnover_ratio_5_20": 0.8,
+      "score": 47.5
+    }
+  ],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
   ],
