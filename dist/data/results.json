@@ -1,27 +1,12 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-22T10:42:26.751087+09:00",
-  "market_date": "2026-10-22",
+  "generated_at": "2026-10-23T09:27:23.301441+09:00",
+  "market_date": "2026-10-23",
   "status": "ok",
-  "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 347,
+  "message": "새 기준을 통과한 종목이 없습니다.",
+  "candidate_count": 334,
   "history_checked": 58,
-  "stocks": [
-    {
-      "code": "011200_AL",
-      "name": "HMM",
-      "price": 22550.0,
-      "volume": "775673",
-      "change_pct": 0.0,
-      "expected_volume": 775673,
-      "turnover": 0.0,
-      "bid_ask_ratio": 1.0,
-      "rsi14": 64.6,
-      "distance20_pct": 2.66,
-      "turnover_ratio_5_20": 1.27,
-      "score": 46.3
-    }
-  ],
+  "stocks": [],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
   ],
