@@ -1,26 +1,25 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-28T11:31:21.256074+09:00",
-  "market_date": "2026-10-28",
+  "generated_at": "2026-10-29T10:38:24.607119+09:00",
+  "market_date": "2026-10-29",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 334,
+  "candidate_count": 339,
   "history_checked": 60,
   "stocks": [
     {
-      "code": "441270_AL",
-      "name": "파인엠텍",
-      "price": 9790.0,
-      "change": "-1.11",
-      "volume": "1934704",
-      "change_pct": -1.11,
-      "expected_volume": 1934704,
+      "code": "340450_AL",
+      "name": "지씨지놈",
+      "price": 8800.0,
+      "volume": "474973",
+      "change_pct": 0.0,
+      "expected_volume": 474973,
       "turnover": 0.0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 53.2,
-      "distance20_pct": 2.63,
-      "turnover_ratio_5_20": 2.12,
-      "score": 76.1
+      "rsi14": 40.4,
+      "distance20_pct": -5.69,
+      "turnover_ratio_5_20": 0.72,
+      "score": 52.3
     }
   ],
   "warnings": [
