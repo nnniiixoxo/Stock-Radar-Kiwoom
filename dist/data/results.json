@@ -1,27 +1,12 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-29T10:38:24.607119+09:00",
+  "generated_at": "2026-10-29T11:41:51.224056+09:00",
   "market_date": "2026-10-29",
   "status": "ok",
-  "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 339,
+  "message": "새 기준을 통과한 종목이 없습니다.",
+  "candidate_count": 337,
   "history_checked": 60,
-  "stocks": [
-    {
-      "code": "340450_AL",
-      "name": "지씨지놈",
-      "price": 8800.0,
-      "volume": "474973",
-      "change_pct": 0.0,
-      "expected_volume": 474973,
-      "turnover": 0.0,
-      "bid_ask_ratio": 1.0,
-      "rsi14": 40.4,
-      "distance20_pct": -5.69,
-      "turnover_ratio_5_20": 0.72,
-      "score": 52.3
-    }
-  ],
+  "stocks": [],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
   ],
