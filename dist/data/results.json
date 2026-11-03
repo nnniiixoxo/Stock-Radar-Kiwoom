@@ -1,53 +1,39 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-11-03T12:21:19.957221+09:00",
+  "generated_at": "2026-11-03T12:59:08.528946+09:00",
   "market_date": "2026-11-03",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 339,
-  "history_checked": 59,
+  "candidate_count": 334,
+  "history_checked": 60,
   "stocks": [
     {
       "code": "200470_AL",
       "name": "에이팩트",
-      "price": 9070.0,
-      "volume": "545066",
+      "price": 8990.0,
+      "volume": "582030",
       "change_pct": 0.0,
-      "expected_volume": 545066,
+      "expected_volume": 582030,
       "turnover": 0.0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 43.0,
-      "distance20_pct": -5.7,
+      "rsi14": 42.5,
+      "distance20_pct": -6.49,
       "turnover_ratio_5_20": 1.25,
-      "score": 57.8
-    },
-    {
-      "code": "079650_AL",
-      "name": "서산",
-      "price": 7080.0,
-      "volume": "585948",
-      "change_pct": 0.0,
-      "expected_volume": 585948,
-      "turnover": 0.0,
-      "bid_ask_ratio": 1.0,
-      "rsi14": 48.4,
-      "distance20_pct": -0.77,
-      "turnover_ratio_5_20": 1.1,
-      "score": 55.1
+      "score": 57.5
     },
     {
       "code": "011200_AL",
       "name": "HMM",
-      "price": 23100.0,
-      "volume": "850460",
+      "price": 23150.0,
+      "volume": "909210",
       "change_pct": 0.0,
-      "expected_volume": 850460,
+      "expected_volume": 909210,
       "turnover": 0.0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 47.8,
-      "distance20_pct": 2.1,
+      "rsi14": 48.3,
+      "distance20_pct": 2.31,
       "turnover_ratio_5_20": 0.64,
-      "score": 54.9
+      "score": 54.5
     }
   ],
   "warnings": [
