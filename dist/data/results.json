@@ -1,25 +1,53 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-11-05T11:02:16.095337+09:00",
+  "generated_at": "2026-11-05T12:38:57.544603+09:00",
   "market_date": "2026-11-05",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 341,
-  "history_checked": 60,
+  "candidate_count": 354,
+  "history_checked": 59,
   "stocks": [
+    {
+      "code": "011200_AL",
+      "name": "HMM",
+      "price": 22850.0,
+      "volume": "1047684",
+      "change_pct": 0.0,
+      "expected_volume": 1047684,
+      "turnover": 0.0,
+      "bid_ask_ratio": 1.0,
+      "rsi14": 42.6,
+      "distance20_pct": 0.13,
+      "turnover_ratio_5_20": 0.64,
+      "score": 58.7
+    },
     {
       "code": "204620_AL",
       "name": "글로벌텍스프리",
-      "price": 5730.0,
-      "volume": "225439",
+      "price": 5660.0,
+      "volume": "313369",
       "change_pct": 0.0,
-      "expected_volume": 225439,
+      "expected_volume": 313369,
       "turnover": 0.0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 44.7,
-      "distance20_pct": 0.99,
-      "turnover_ratio_5_20": 0.66,
-      "score": 51.6
+      "rsi14": 42.7,
+      "distance20_pct": -0.19,
+      "turnover_ratio_5_20": 0.68,
+      "score": 55.2
+    },
+    {
+      "code": "086450_AL",
+      "name": "동국제약",
+      "price": 24800.0,
+      "change": "+1.64",
+      "change_pct": 1.64,
+      "expected_volume": 0,
+      "turnover": 0.0,
+      "bid_ask_ratio": 1.0,
+      "rsi14": 47.4,
+      "distance20_pct": 3.3,
+      "turnover_ratio_5_20": 0.55,
+      "score": 46.6
     }
   ],
   "warnings": [
