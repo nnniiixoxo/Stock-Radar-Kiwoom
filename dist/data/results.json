@@ -1,55 +1,12 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-11-05T12:38:57.544603+09:00",
-  "market_date": "2026-11-05",
+  "generated_at": "2026-11-06T11:02:28.291898+09:00",
+  "market_date": "2026-11-06",
   "status": "ok",
-  "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 354,
-  "history_checked": 59,
-  "stocks": [
-    {
-      "code": "011200_AL",
-      "name": "HMM",
-      "price": 22850.0,
-      "volume": "1047684",
-      "change_pct": 0.0,
-      "expected_volume": 1047684,
-      "turnover": 0.0,
-      "bid_ask_ratio": 1.0,
-      "rsi14": 42.6,
-      "distance20_pct": 0.13,
-      "turnover_ratio_5_20": 0.64,
-      "score": 58.7
-    },
-    {
-      "code": "204620_AL",
-      "name": "글로벌텍스프리",
-      "price": 5660.0,
-      "volume": "313369",
-      "change_pct": 0.0,
-      "expected_volume": 313369,
-      "turnover": 0.0,
-      "bid_ask_ratio": 1.0,
-      "rsi14": 42.7,
-      "distance20_pct": -0.19,
-      "turnover_ratio_5_20": 0.68,
-      "score": 55.2
-    },
-    {
-      "code": "086450_AL",
-      "name": "동국제약",
-      "price": 24800.0,
-      "change": "+1.64",
-      "change_pct": 1.64,
-      "expected_volume": 0,
-      "turnover": 0.0,
-      "bid_ask_ratio": 1.0,
-      "rsi14": 47.4,
-      "distance20_pct": 3.3,
-      "turnover_ratio_5_20": 0.55,
-      "score": 46.6
-    }
-  ],
+  "message": "새 기준을 통과한 종목이 없습니다.",
+  "candidate_count": 348,
+  "history_checked": 50,
+  "stocks": [],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
   ],
