@@ -1,25 +1,25 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-11-10T12:59:06.275763+09:00",
+  "generated_at": "2026-11-10T13:44:03.435353+09:00",
   "market_date": "2026-11-10",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
   "candidate_count": 359,
-  "history_checked": 53,
+  "history_checked": 54,
   "stocks": [
     {
       "code": "000400_AL",
       "name": "롯데손해보험",
-      "price": 2497.0,
-      "volume": "479269",
+      "price": 2500.0,
+      "volume": "499140",
       "change_pct": 0.0,
-      "expected_volume": 479269,
+      "expected_volume": 499140,
       "turnover": 0.0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 47.2,
-      "distance20_pct": 1.08,
+      "rsi14": 47.5,
+      "distance20_pct": 1.19,
       "turnover_ratio_5_20": 0.65,
-      "score": 55.7
+      "score": 55.9
     }
   ],
   "warnings": [
