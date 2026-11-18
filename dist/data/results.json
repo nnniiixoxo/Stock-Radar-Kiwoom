@@ -1,27 +1,12 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-11-17T14:11:21.655122+09:00",
-  "market_date": "2026-11-17",
+  "generated_at": "2026-11-18T12:23:39.499620+09:00",
+  "market_date": "2026-11-18",
   "status": "ok",
-  "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 351,
-  "history_checked": 60,
-  "stocks": [
-    {
-      "code": "012030_AL",
-      "name": "DB",
-      "price": 2350.0,
-      "volume": "323680",
-      "change_pct": 0.0,
-      "expected_volume": 323680,
-      "turnover": 0.0,
-      "bid_ask_ratio": 1.0,
-      "rsi14": 42.7,
-      "distance20_pct": 1.62,
-      "turnover_ratio_5_20": 0.57,
-      "score": 59.1
-    }
-  ],
+  "message": "새 기준을 통과한 종목이 없습니다.",
+  "candidate_count": 354,
+  "history_checked": 59,
+  "stocks": [],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
   ],
