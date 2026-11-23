@@ -1,12 +1,30 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-11-20T13:11:27.835588+09:00",
-  "market_date": "2026-11-20",
+  "generated_at": "2026-11-23T11:22:09.209224+09:00",
+  "market_date": "2026-11-23",
   "status": "ok",
-  "message": "새 기준을 통과한 종목이 없습니다.",
-  "candidate_count": 340,
+  "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
+  "candidate_count": 356,
   "history_checked": 59,
-  "stocks": [],
+  "stocks": [
+    {
+      "code": "030530_AL",
+      "name": "원익홀딩스",
+      "price": 31350.0,
+      "change": "+0.64",
+      "bid": "+31350",
+      "ask": "+31400",
+      "turnover": 84809.0,
+      "volume": "2692195",
+      "change_pct": 0.64,
+      "expected_volume": 2692195,
+      "bid_ask_ratio": 1.0,
+      "rsi14": 47.3,
+      "distance20_pct": 3.58,
+      "turnover_ratio_5_20": 1.2,
+      "score": 67.6
+    }
+  ],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
   ],
