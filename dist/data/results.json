@@ -1,27 +1,12 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-11-25T14:36:39.400646+09:00",
-  "market_date": "2026-11-25",
+  "generated_at": "2026-11-26T13:00:06.588840+09:00",
+  "market_date": "2026-11-26",
   "status": "ok",
-  "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 356,
-  "history_checked": 59,
-  "stocks": [
-    {
-      "code": "086450_AL",
-      "name": "동국제약",
-      "price": 25750.0,
-      "change": "+1.38",
-      "change_pct": 1.38,
-      "expected_volume": 0,
-      "turnover": 0.0,
-      "bid_ask_ratio": 1.0,
-      "rsi14": 54.8,
-      "distance20_pct": 4.96,
-      "turnover_ratio_5_20": 1.15,
-      "score": 47.5
-    }
-  ],
+  "message": "새 기준을 통과한 종목이 없습니다.",
+  "candidate_count": 352,
+  "history_checked": 57,
+  "stocks": [],
   "warnings": [
     "ka10029 조회 실패: 입력 값 오류입니다[1511:필수 입력 값에 값이 존재하지 않습니다. 필수입력 파라미터=trde_qty_cnd]"
   ],
