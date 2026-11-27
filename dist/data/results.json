@@ -1,25 +1,25 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-11-27T12:58:22.719753+09:00",
+  "generated_at": "2026-11-27T14:15:57.713688+09:00",
   "market_date": "2026-11-27",
   "status": "ok",
   "message": "전일 차트와 장전 수급을 결합한 상승 가능성 점수",
-  "candidate_count": 348,
-  "history_checked": 54,
+  "candidate_count": 361,
+  "history_checked": 58,
   "stocks": [
     {
       "code": "086450_AL",
       "name": "동국제약",
-      "price": 25350.0,
-      "volume": "371194",
+      "price": 25500.0,
+      "volume": "450734",
       "change_pct": 0.0,
-      "expected_volume": 371194,
+      "expected_volume": 450734,
       "turnover": 0.0,
       "bid_ask_ratio": 1.0,
-      "rsi14": 58.3,
-      "distance20_pct": 2.88,
-      "turnover_ratio_5_20": 0.93,
-      "score": 47.9
+      "rsi14": 58.8,
+      "distance20_pct": 3.27,
+      "turnover_ratio_5_20": 0.95,
+      "score": 50.3
     }
   ],
   "warnings": [
